@@ -1,0 +1,33 @@
+<?php
+require '../config/db.php';
+require '../config/session.php';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['csv_file'])) {
+    $csvFile = fopen($_FILES['csv_file']['tmp_name'], 'r');
+    $header = fgetcsv($csvFile); // Header kolom
+    
+    while (($row = fgetcsv($csvFile)) !== false) {
+        $data = array_combine($header, $row);
+        
+        // Simpan ke database
+        $stmt = $koneksi->prepare("INSERT INTO daily_works 
+            (jenis_pekerjaan, request_by, id_pelanggan, ...) 
+            VALUES (?, ?, ?, ...)");
+        $stmt->bind_param("sss...", 
+            $data['jenis_pekerjaan'],
+            $data['request_by'],
+            $data['id_pelanggan'],
+            // ... lainnya
+        );
+        $stmt->execute();
+    }
+    
+    header("Location: dailyworkteknisi.php?success=1");
+    exit;
+}
+?>
+<!-- Form Upload CSV -->
+<form method="post" enctype="multipart/form-data" class="mb-4">
+    <input type="file" name="csv_file" accept=".csv" required>
+    <button type="submit" class="btn btn-info">Import CSV</button>
+</form>

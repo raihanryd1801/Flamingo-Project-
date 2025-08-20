@@ -1,0 +1,6 @@
+# Blokir directory listing
+Options -Indexes
+
+# Optional: Redirect kalau user buka folder yang kosong
+ErrorDocument 403 /unauthorized.php
+

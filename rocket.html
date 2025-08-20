@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Rocket Animation Test</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #f1f5f9;
+        }
+        #rocketIcon {
+            font-size: 100px;
+            color: #f97316;
+            position: fixed;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+        }
+        .quick-action-btn {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 10px 20px;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Rocket Icon -->
+<i class="fas fa-rocket" id="rocketIcon"></i>
+
+<!-- Button -->
+<button class="quick-action-btn" id="mulaiBtn">Mulai Bekerja</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
+
+<script>
+    document.getElementById('mulaiBtn').addEventListener('click', function() {
+        gsap.to('#rocketIcon', {
+            y: -1000, // terbang jauh ke atas
+            rotation: 1080, // muter 3x
+            opacity: 0, // menghilang
+            duration: 2,
+            ease: "power2.inOut"
+        });
+    });
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Lembur Bulanan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-light: #4895ef;
+            --secondary: #3f37c9;
+            --dark: #1b263b;
+            --light: #f8f9fa;
+            --success: #4cc9f0;
+            --warning: #f72585;
+            --gray: #adb5bd;
+            --gray-light: #e9ecef;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+        }
+        
+        h1 {
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2.2rem;
+        }
+        
+        .subtitle {
+            color: var(--gray);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        
+        .calculator-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: var(--light);
+            border-radius: 8px;
+        }
+        
+        h2 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        h2 i {
+            margin-right: 10px;
+        }
+        
+        .input-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .input-field {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid var(--gray-light);
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        input:focus, select:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+        
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(63, 55, 201, 0.3);
+        }
+        
+        button i {
+            margin-right: 8px;
+        }
+        
+        .result-section {
+            margin-top: 30px;
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background-color: white;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        th {
+            background-color: var(--primary);
+            color: white;
+            font-weight: 500;
+        }
+        
+        tr:nth-child(even) {
+            background-color: rgba(67, 97, 238, 0.05);
+        }
+        
+        tr:hover {
+            background-color: rgba(67, 97, 238, 0.1);
+        }
+        
+        .total-row {
+            font-weight: 600;
+            background-color: rgba(67, 97, 238, 0.1) !important;
+        }
+        
+        .grand-total {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-align: right;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: rgba(67, 97, 238, 0.1);
+            border-radius: 6px;
+        }
+        
+        .currency {
+            text-align: right;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .day-inputs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .day-input {
+            flex: 1;
+            min-width: 120px;
+        }
+        
+        .note {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-top: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .input-group, .day-inputs {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .input-field, .day-input {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-calculator"></i> Kalkulator Lembur Bulanan</h1>
+        <p class="subtitle">Hitung total lembur dan take home pay Anda untuk satu bulan</p>
+        
+        <div class="calculator-section">
+            <h2><i class="fas fa-user-tie"></i> Data Karyawan</h2>
+            <div class="input-group">
+                <div class="input-field">
+                    <label for="employee-name">Nama Karyawan</label>
+                    <input type="text" id="employee-name" placeholder="Masukkan nama">
+                </div>
+                <div class="input-field">
+                    <label for="month">Bulan</label>
+                    <select id="month">
+                        <option value="1">Januari</option>
+                        <option value="2">Februari</option>
+                        <option value="3">Maret</option>
+                        <option value="4">April</option>
+                        <option value="5">Mei</option>
+                        <option value="6">Juni</option>
+                        <option value="7">Juli</option>
+                        <option value="8">Agustus</option>
+                        <option value="9">September</option>
+                        <option value="10">Oktober</option>
+                        <option value="11">November</option>
+                        <option value="12">Desember</option>
+                    </select>
+                </div>
+                <div class="input-field">
+                    <label for="year">Tahun</label>
+                    <input type="number" id="year" min="2000" max="2100" value="2023">
+                </div>
+            </div>
+        </div>
+        
+        <div class="calculator-section">
+            <h2><i class="fas fa-money-bill-wave"></i> Gaji Pokok dan Tunjangan</h2>
+            <div class="input-group">
+                <div class="input-field">
+                    <label for="basic-salary">Gaji Pokok (Rp)</label>
+                    <input type="number" id="basic-salary" placeholder="Contoh: 1500000">
+                </div>
+                <div class="input-field">
+                    <label for="allowance">Tunjangan (Rp)</label>
+                    <input type="number" id="allowance" placeholder="Contoh: 400000">
+                </div>
+                <div class="input-field">
+                    <label for="attendance-bonus">Bonus Kehadiran (Rp)</label>
+                    <input type="number" id="attendance-bonus" placeholder="Contoh: 1300000">
+                </div>
+            </div>
+        </div>
+        
+        <div class="calculator-section">
+            <h2><i class="fas fa-calendar-day"></i> Lembur Weekday (Senin-Jumat)</h2>
+            <p class="note">Masukkan jam lembur dalam format desimal (contoh: 3.5 untuk 3 jam 30 menit)</p>
+            <div class="day-inputs">
+                <div class="day-input">
+                    <label for="monday-hours">Senin (jam)</label>
+                    <input type="number" id="monday-hours" min="0" step="0.5" value="0">
+                </div>
+                <div class="day-input">
+                    <label for="tuesday-hours">Selasa (jam)</label>
+                    <input type="number" id="tuesday-hours" min="0" step="0.5" value="0">
+                </div>
+                <div class="day-input">
+                    <label for="wednesday-hours">Rabu (jam)</label>
+                    <input type="number" id="wednesday-hours" min="0" step="0.5" value="0">
+                </div>
+                <div class="day-input">
+                    <label for="thursday-hours">Kamis (jam)</label>
+                    <input type="number" id="thursday-hours" min="0" step="0.5" value="0">
+                </div>
+                <div class="day-input">
+                    <label for="friday-hours">Jumat (jam)</label>
+                    <input type="number" id="friday-hours" min="0" step="0.5" value="0">
+                </div>
+            </div>
+        </div>
+        
+        <div class="calculator-section">
+            <h2><i class="fas fa-umbrella-beach"></i> Lembur Hari Minggu/Libur</h2>
+            <p class="note">Masukkan jam lembur dalam format desimal (contoh: 5.5 untuk 5 jam 30 menit)</p>
+            <div class="input-group">
+                <div class="input-field">
+                    <label for="sunday-count">Jumlah Hari Minggu/Libur</label>
+                    <input type="number" id="sunday-count" min="0" max="8" value="0">
+                </div>
+                <div class="input-field">
+                    <label for="sunday-hours">Jam Lembur per Hari</label>
+                    <input type="number" id="sunday-hours" min="0" max="12" step="0.5" value="0">
+                </div>
+            </div>
+            <div class="input-group">
+                <div class="input-field">
+                    <label for="special-date-hours">Lembur Tanggal Khusus (jam)</label>
+                    <input type="number" id="special-date-hours" min="0" max="12" step="0.5" value="0">
+                </div>
+                <div class="input-field">
+                    <label for="special-date">Tanggal Khusus (opsional)</label>
+                    <input type="text" id="special-date" placeholder="Contoh: 27">
+                </div>
+            </div>
+        </div>
+        
+        <button onclick="calculateOvertime()"><i class="fas fa-calculator"></i> Hitung Total Lembur</button>
+        
+        <div class="result-section" id="result-section" style="display: none;">
+            <h2><i class="fas fa-file-invoice-dollar"></i> Hasil Perhitungan</h2>
+            
+            <h3>Rincian Lembur Weekday</h3>
+            <table id="weekday-result">
+                <thead>
+                    <tr>
+                        <th>Hari</th>
+                        <th>Jam Lembur</th>
+                        <th>Total Lembur</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot>
+                    <tr class="total-row">
+                        <td colspan="2">Total Lembur Weekday</td>
+                        <td class="currency" id="total-weekday">IDR 0</td>
+                    </tr>
+                </tfoot>
+            </table>
+            
+            <h3>Rincian Lembur Hari Minggu/Libur</h3>
+            <table id="holiday-result">
+                <thead>
+                    <tr>
+                        <th>Keterangan</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot>
+                    <tr class="total-row">
+                        <td>Total Lembur Hari Minggu/Libur</td>
+                        <td class="currency" id="total-holiday">IDR 0</td>
+                    </tr>
+                </tfoot>
+            </table>
+            
+            <h3>Total Take Home Pay</h3>
+            <table id="salary-result">
+                <thead>
+                    <tr>
+                        <th>Komponen</th>
+                        <th>Jumlah</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Gaji Pokok</td>
+                        <td class="currency" id="display-basic-salary">IDR 0</td>
+                    </tr>
+                    <tr>
+                        <td>Tunjangan</td>
+                        <td class="currency" id="display-allowance">IDR 0</td>
+                    </tr>
+                    <tr>
+                        <td>Bonus Kehadiran</td>
+                        <td class="currency" id="display-attendance-bonus">IDR 0</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td>Total Lembur</td>
+                        <td class="currency" id="display-total-overtime">IDR 0</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr class="grand-total-row">
+                        <td><strong>Total Take Home Pay</strong></td>
+                        <td class="currency" id="total-salary"><strong>IDR 0</strong></td>
+                    </tr>
+                </tfoot>
+            </table>
+            
+            <div class="grand-total">
+                Total Gaji Bulan <span id="display-month"></span> <span id="display-year"></span>: 
+                <span id="final-total">IDR 0</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calculateOvertime() {
+            // Get basic salary and validate
+            const basicSalary = parseFloat(document.getElementById('basic-salary').value);
+            if (isNaN(basicSalary) || basicSalary <= 0) {
+                alert('Masukkan gaji pokok yang valid!');
+                return;
+            }
+            
+            // Get allowance and attendance bonus (can be 0)
+            const allowance = parseFloat(document.getElementById('allowance').value) || 0;
+            const attendanceBonus = parseFloat(document.getElementById('attendance-bonus').value) || 0;
+            
+            // Calculate weekday overtime
+            const weekdayHours = {
+                monday: parseFloat(document.getElementById('monday-hours').value) || 0,
+                tuesday: parseFloat(document.getElementById('tuesday-hours').value) || 0,
+                wednesday: parseFloat(document.getElementById('wednesday-hours').value) || 0,
+                thursday: parseFloat(document.getElementById('thursday-hours').value) || 0,
+                friday: parseFloat(document.getElementById('friday-hours').value) || 0
+            };
+            
+            let totalWeekdayOvertime = 0;
+            const weekdayTable = document.querySelector('#weekday-result tbody');
+            weekdayTable.innerHTML = '';
+            
+            // Process each weekday
+            const days = [
+                { id: 'monday', name: 'Senin' },
+                { id: 'tuesday', name: 'Selasa' },
+                { id: 'wednesday', name: 'Rabu' },
+                { id: 'thursday', name: 'Kamis' },
+                { id: 'friday', name: 'Jumat' }
+            ];
+            
+            days.forEach(day => {
+                const hours = weekdayHours[day.id];
+                if (hours > 0) {
+                    // Calculate overtime for this day
+                    let dayOvertime = 0;
+                    
+                    // First hour (1.5x)
+                    if (hours >= 1) {
+                        const firstHour = Math.min(hours, 1);
+                        dayOvertime += firstHour * 1.5 * (1/173) * basicSalary;
+                    }
+                    
+                    // Subsequent hours (2x)
+                    if (hours > 1) {
+                        const subsequentHours = hours - 1;
+                        dayOvertime += subsequentHours * 2 * (1/173) * basicSalary;
+                    }
+                    
+                    totalWeekdayOvertime += dayOvertime;
+                    
+                    // Format hours display (convert 1.5 to "1 jam 30 menit")
+                    const hoursDisplay = formatHours(hours);
+                    
+                    // Add to table
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${day.name}</td>
+                        <td>${hoursDisplay}</td>
+                        <td class="currency">${formatCurrency(dayOvertime)}</td>
+                    `;
+                    weekdayTable.appendChild(row);
+                }
+            });
+            
+            document.getElementById('total-weekday').textContent = formatCurrency(totalWeekdayOvertime);
+            
+            // Calculate holiday overtime
+            const sundayCount = parseInt(document.getElementById('sunday-count').value) || 0;
+            const sundayHours = parseFloat(document.getElementById('sunday-hours').value) || 0;
+            const specialDateHours = parseFloat(document.getElementById('special-date-hours').value) || 0;
+            const specialDate = document.getElementById('special-date').value;
+            
+            let totalHolidayOvertime = 0;
+            const holidayTable = document.querySelector('#holiday-result tbody');
+            holidayTable.innerHTML = '';
+            
+            // Sunday overtime
+            if (sundayCount > 0 && sundayHours > 0) {
+                // Max 12 hours per day
+                const actualHours = Math.min(sundayHours, 12);
+                
+                // Calculate for each Sunday
+                let sundayOvertime = 0;
+                
+                // First 8 hours (2x)
+                const first8Hours = Math.min(actualHours, 8);
+                sundayOvertime += first8Hours * 2 * (1/173) * basicSalary;
+                
+                // 9th hour (3x)
+                if (actualHours > 8) {
+                    const ninthHour = Math.min(actualHours, 9) - 8;
+                    sundayOvertime += ninthHour * 3 * (1/173) * basicSalary;
+                }
+                
+                // 10th-12th hours (4x)
+                if (actualHours > 9) {
+                    const extraHours = Math.min(actualHours, 12) - 9;
+                    sundayOvertime += extraHours * 4 * (1/173) * basicSalary;
+                }
+                
+                // Multiply by number of Sundays
+                const totalSundayOvertime = sundayCount * sundayOvertime;
+                totalHolidayOvertime += totalSundayOvertime;
+                
+                // Format hours display
+                const hoursDisplay = formatHours(actualHours);
+                
+                // Add to table
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>Lembur ${sundayCount} hari Minggu @${hoursDisplay}</td>
+                    <td class="currency">${formatCurrency(totalSundayOvertime)}</td>
+                `;
+                holidayTable.appendChild(row);
+            }
+            
+            // Special date overtime
+            if (specialDateHours > 0) {
+                // Max 12 hours
+                const actualHours = Math.min(specialDateHours, 12);
+                
+                let specialOvertime = 0;
+                
+                // First 8 hours (2x)
+                const first8Hours = Math.min(actualHours, 8);
+                specialOvertime += first8Hours * 2 * (1/173) * basicSalary;
+                
+                // 9th hour (3x)
+                if (actualHours > 8) {
+                    const ninthHour = Math.min(actualHours, 9) - 8;
+                    specialOvertime += ninthHour * 3 * (1/173) * basicSalary;
+                }
+                
+                // 10th-12th hours (4x)
+                if (actualHours > 9) {
+                    const extraHours = Math.min(actualHours, 12) - 9;
+                    specialOvertime += extraHours * 4 * (1/173) * basicSalary;
+                }
+                
+                totalHolidayOvertime += specialOvertime;
+                
+                // Format hours display
+                const hoursDisplay = formatHours(actualHours);
+                
+                // Add to table
+                const row = document.createElement('tr');
+                const dateText = specialDate ? `Tanggal ${specialDate}` : 'Tanggal Khusus';
+                row.innerHTML = `
+                    <td>Lembur ${dateText} ${hoursDisplay}</td>
+                    <td class="currency">${formatCurrency(specialOvertime)}</td>
+                `;
+                holidayTable.appendChild(row);
+            }
+            
+            document.getElementById('total-holiday').textContent = formatCurrency(totalHolidayOvertime);
+            
+            // Calculate total salary
+            const totalOvertime = totalWeekdayOvertime + totalHolidayOvertime;
+            const totalSalary = basicSalary + allowance + attendanceBonus + totalOvertime;
+            
+            // Display results
+            document.getElementById('display-basic-salary').textContent = formatCurrency(basicSalary);
+            document.getElementById('display-allowance').textContent = formatCurrency(allowance);
+            document.getElementById('display-attendance-bonus').textContent = formatCurrency(attendanceBonus);
+            document.getElementById('display-total-overtime').textContent = formatCurrency(totalOvertime);
+            document.getElementById('total-salary').innerHTML = `<strong>${formatCurrency(totalSalary)}</strong>`;
+            
+            // Display month and year
+            const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni",
+                                "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+            const month = document.getElementById('month').value;
+            const year = document.getElementById('year').value;
+            
+            document.getElementById('display-month').textContent = monthNames[month-1];
+            document.getElementById('display-year').textContent = year;
+            document.getElementById('final-total').textContent = formatCurrency(totalSalary);
+            
+            // Show result section
+            document.getElementById('result-section').style.display = 'block';
+            
+            // Scroll to results
+            document.getElementById('result-section').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function formatCurrency(amount) {
+            return 'IDR ' + Math.round(amount).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+        
+        function formatHours(decimalHours) {
+            const hours = Math.floor(decimalHours);
+            const minutes = Math.round((decimalHours - hours) * 60);
+            
+            if (minutes === 0) {
+                return `${hours} jam`;
+            } else if (hours === 0) {
+                return `${minutes} menit`;
+            } else {
+                return `${hours} jam ${minutes} menit`;
+            }
+        }
+    </script>
+</body>
+</html>

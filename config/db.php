@@ -1,0 +1,2 @@
+<?php
+ goto WuCyE; WuCyE: $host = "\61\x39\62\x2e\x31\66\70\x2e\x39\71\56\x31\x37\63"; goto Cp3TW; DJGi7: $database = "\x6d\157\x6e\151\x74\157\x72\151\156\x67\137\x64\x62"; goto zdcxD; zdcxD: $koneksi = new mysqli($host, $username, $password, $database); goto FmnYN; S05KD: $password = "\146\x69\144\61\62\x33\x34"; goto DJGi7; Cp3TW: $username = "\146\x6c\x61\x6d\x69\156\x67\x6f"; goto S05KD; FmnYN: if ($koneksi->connect_error) { die("\x4b\157\x6e\145\153\x73\x69\x20\x67\x61\147\x61\154\72\40" . $koneksi->connect_error); }

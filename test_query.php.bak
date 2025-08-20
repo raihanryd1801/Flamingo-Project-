@@ -1,0 +1,15 @@
+<?php
+require_once 'config/db.php';
+
+$query = "SELECT s.*, r.name as routing_name 
+          FROM routing_schedules s
+          JOIN e_gatewayrouting r ON s.routing_id = r.id
+          WHERE s.created_by = 1
+          ORDER BY s.schedule_time DESC";
+
+$result = $koneksi->query($query);
+if ($result === false) {
+    die("Query error: " . $koneksi->error);
+}
+
+print_r($result->fetch_all(MYSQLI_ASSOC));

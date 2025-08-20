@@ -1,0 +1,30 @@
+<?php
+include '../config/db.php';
+session_start();
+
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'noc_voip') {
+    header('Location: ../unauthorized.php');
+    exit();
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $phone_number = $koneksi->real_escape_string($_POST['phone_number']);
+
+    $update = "
+        UPDATE phone_numbers 
+        SET is_terminated = 0 
+        WHERE phone_number = '$phone_number'
+    ";
+
+    if ($koneksi->query($update)) {
+        header('Location: ../terminate_list.php?success=recovered');
+    } else {
+        header('Location: ../terminate_list.php?error=recover');
+    }
+    exit();
+} else {
+    header('Location: ../terminate_list.php');
+    exit();
+}
+?>
+

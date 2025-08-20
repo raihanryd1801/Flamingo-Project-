@@ -1,0 +1,5 @@
+<Files "vos_server.php">
+    Order allow,deny
+    Deny from all
+</Files>
+

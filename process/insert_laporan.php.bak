@@ -1,0 +1,37 @@
+<?php
+include '../config/db.php';
+
+$mulai  = new DateTime($_POST['waktu_mulai']);
+$selesai = new DateTime($_POST['waktu_selesai']);
+$total_waktu = $mulai->diff($selesai)->format('%H:%I:%S');
+
+$sql = "INSERT INTO laporan (
+    jenis_pekerjaan, request_by, id_pelanggan, nama_pelanggan, nama_teknisi,
+    lokasi, waktu_mulai, waktu_selesai, total_waktu, indikasi_case,
+    action, status_ticket, catatan
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("sssssssssssss",
+    $_POST['jenis_pekerjaan'],
+    $_POST['request_by'],
+    $_POST['id_pelanggan'],
+    $_POST['nama_pelanggan'],
+    $_POST['nama_teknisi'],
+    $_POST['lokasi'],
+    $_POST['waktu_mulai'],
+    $_POST['waktu_selesai'],
+    $total_waktu,
+    $_POST['indikasi_case'],
+    $_POST['action'],
+    $_POST['status_ticket'],
+    $_POST['catatan']
+);
+
+if ($stmt->execute()) {
+    header("Location: ../views/list.php");
+} else {
+    echo "Error: " . $stmt->error;
+}
+?>
+
