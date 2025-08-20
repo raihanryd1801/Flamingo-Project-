@@ -19,7 +19,7 @@ Proyek ini dibuat menggunakan **PHP Native** tanpa framework.
 
 ---
 
-## 📸 Screenshot
+## 📸 Documentasi Dashborad
 
 Tampilan Dashboard:  
 <img width="1361" height="637" alt="image" src="https://github.com/user-attachments/assets/67070202-a7ba-4217-bd0e-234f15ab9945" />
