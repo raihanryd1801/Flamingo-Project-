@@ -14,8 +14,8 @@ Proyek ini dibuat menggunakan **PHP Native** tanpa framework.
 - 🔐 Login & Autentikasi user
 - 📊 Monitoring FirewallD secara real-time
 - 📅 Penjadwalan otomatis untuk routing nomor VoIP
-- 🔗 Integrasi langsung dengan **VOS3000** & database lokal
-- 📈 Dashboard interaktif untuk laporan & statistik
+- 🔗 Integrasi langsung dengan **VOS3000** & database lokal (Dual Handling Database)
+- 📈 Monitoring pelanggan WiFi menggunakan API
 
 ---
 
