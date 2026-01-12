@@ -4,9 +4,9 @@ require __DIR__ . '/../vendor/autoload.php';
 use RouterOS\Client;
 use RouterOS\Query;
 
-$host = '103.148.197.113';
+$host = ''; // Add IP di sini
 $user = 'Herdy';
-$pass = 'Roswaty909';
+$pass = ''; 
 $timeout = 10; // Timeout koneksi dalam detik
 
 // Fungsi untuk mendeteksi versi RouterOS
