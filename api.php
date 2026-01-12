@@ -1,9 +1,9 @@
 <?php
 header('Content-Type: application/json');
 
-$host = "103.148.197.18";  // Ganti dengan IP server VOS3000
+$host = "";  // Ganti dengan IP server VOS3000
 $user = "noc";
-$password = "fid1234";
+$password = "";
 $database = "vos300db";
 
 $conn = new mysqli($host, $user, $password, $database);
