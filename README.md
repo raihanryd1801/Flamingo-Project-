@@ -30,7 +30,7 @@ Tampilan Dashboard:
 
 ## 🚀 Instalasi
 
-Let'go Trying
+Let'go Trying !!!
 
 1. **Clone repository**
    ```bash
