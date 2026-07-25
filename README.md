@@ -30,6 +30,8 @@ Tampilan Dashboard:
 
 ## 🚀 Instalasi
 
+Let'go Trying
+
 1. **Clone repository**
    ```bash
    git clone https://github.com/USERNAME/Flamingo-Project.git
